@@ -2,12 +2,14 @@ import { Card, Grid, Typography } from "@mui/material";
 import { Character } from "../../../Services/Server/Schema/graphql";
 import { Link } from "react-router-dom";
 import { routes } from "../../../App";
+import { isMobile } from "../../../Hooks/isMobile";
 
 export function CharacterDetailCard(props: {character: Character}){
+    const mobile = isMobile();
     const { character } = props;
 
     return (
-        <Grid item xs={12} md={8} component={Card} sx={{height: 300, display: "flex"}}>
+        <Grid container item xs={12} md={8} component={Card} sx={{height: !mobile ? 300 : undefined, display: "flex"}}>
             <Grid item>
                 <img 
                     src={character.image!}
@@ -15,7 +17,7 @@ export function CharacterDetailCard(props: {character: Character}){
                     width={300} 
                     />
             </Grid>
-            <Grid item sx={{ p: 2 }}>
+            <Grid item  sx={{ p: 2 }}>
                 <Typography gutterBottom variant="h5">
                     Name: {character.name}
                 </Typography>
