@@ -3,7 +3,19 @@ import './App.css'
 import AppThemeProvider from './Providers/AppThemeProvider'
 import { CharacterPage } from './Pages/Characters/CharacterPage'
 import { ApolloProvider } from '@apollo/client'
-import { WebClient } from './Utilities/WebClient'
+import { WebClient } from './Services/Server/WebClient'
+import { LocationPage } from './Pages/Locations/LocationPage'
+
+export const routes = {
+  charactersListPage: "/characters",
+  charactersDetailPage: "/characters/:id",
+  locationsListPage: "/locations",
+  locationsDetailPage: "/locations/:id",
+  resolve: {
+    charactersDetailPage: (id:string) => `${routes.charactersListPage}/${id}`,
+    locationsDetailPage: (id: string) => `${routes.locationsListPage}/${id}`
+  }
+}
 
 function App() {
 
@@ -13,6 +25,7 @@ function App() {
         <ApolloProvider client={WebClient}>
           <Routes>
             <Route path={"/characters/*"} element={<CharacterPage />} />
+            <Route path={"/locations/*"} element={<LocationPage />} />
           </Routes>
         </ApolloProvider>
     </BrowserRouter>
