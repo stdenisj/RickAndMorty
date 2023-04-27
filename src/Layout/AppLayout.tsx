@@ -1,8 +1,9 @@
-import { AppBar, Divider, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, Toolbar } from "@mui/material";
+import { AppBar, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, Toolbar } from "@mui/material";
 import { ArrowBackIosNew } from "@mui/icons-material";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { isMobile } from "../Hooks/isMobile";
+import { AppThemeContext } from "../Providers/AppThemeProvider";
 
 export function AppLayout(props: PropsWithChildren<{}>) {
 	const mobile = isMobile();
@@ -11,13 +12,14 @@ export function AppLayout(props: PropsWithChildren<{}>) {
 
 function DeskTopLayout(props: PropsWithChildren<{}>) {
 	const navigate = useNavigate();
+	const [theme, setTheme]  = useContext(AppThemeContext)
 
 	return (
 		<div id="desktop-layout">
 			<div
 				id="desktop-layout-sidebar"
 				style={{
-					top: 75,
+					top: 0,
 					bottom: 0,
 					width: 240,
 					position: "absolute",
@@ -26,38 +28,35 @@ function DeskTopLayout(props: PropsWithChildren<{}>) {
 				}}
 			>
 				<div style={{ overflowY: "auto" }}>
-					<Grid sx={{ pt: 1 }} container>
-						<List sx={{ pt: 1, width: 1 }} >
-							<Divider sx={{ mt: 1 }} component="li" />
+					<Grid container>
+						<List sx={{ width: 1 }} >
 							<ListItem disablePadding>
-								<ListItemButton onClick={() => navigate("/")}>
+								<ListItemButton onClick={() => navigate("/characters")}>
 									<ListItemText primary="Characters" />
 								</ListItemButton>
 							</ListItem>
 							<ListItem disablePadding>
-								<ListItemButton onClick={() => navigate("/")}>
+								<ListItemButton onClick={() => navigate("/locations")}>
 									<ListItemText primary="Locations" />
+								</ListItemButton>
+							</ListItem>
+							<ListItem disablePadding>
+								<ListItemButton onClick={() => 
+									theme === "dark" 
+									? setTheme("light") 
+									: setTheme("dark")
+								}>
+									<ListItemText primary={theme === "dark" ? "Light Mode" : "Dark Mode"} />
 								</ListItemButton>
 							</ListItem>
 						</List>
 					</Grid>
 				</div>
 			</div>
-			<div
-				id="desktop-layout-header"
-				style={{
-					position: "absolute",
-					top: 0,
-					left: 0,
-					right: 0,
-					height: 75,
-				}}
-			>
-			</div>
 			<Grid
 				id="desktop-layout-view"
 				sx={{
-					top: 75,
+					top: 0,
 					bottom: 0,
 					right: 0,
 					left: 240,
@@ -77,7 +76,6 @@ function DeskTopLayout(props: PropsWithChildren<{}>) {
 function MobileLayout(props: PropsWithChildren<{}>) {
 	const location = useLocation();
 	const navigate = useNavigate();
-	//const showBackButton = useMemo(() => location.pathname !== routes.sparkListPage, [location.pathname]);
 
 	return (
 		<div id="mobile-layout">
@@ -85,7 +83,6 @@ function MobileLayout(props: PropsWithChildren<{}>) {
 				<AppBar position="absolute" style={{ backgroundColor: "#FFF", boxShadow: "none", height: 64 }}>
 					<Toolbar>
 						<>
-							{/* { showBackButton && */}
 							<IconButton
 								color="inherit"
 								aria-label="  "
@@ -94,7 +91,6 @@ function MobileLayout(props: PropsWithChildren<{}>) {
 							>
 								<ArrowBackIosNew />
 							</IconButton>
-							{/* } */}
 						</>
 					</Toolbar>
 				</AppBar>
