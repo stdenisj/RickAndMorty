@@ -4,7 +4,7 @@ const config: CodegenConfig = {
   schema: 'https://rickandmortyapi.com/graphql',
   documents: ['src/**/*.tsx'],
   generates: {
-    './src/__generated__/': {
+    './src/Services/Server/Schema/': {
       preset: 'client',
       plugins: [],
       presetConfig: {
