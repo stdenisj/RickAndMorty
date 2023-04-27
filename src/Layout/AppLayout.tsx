@@ -1,9 +1,10 @@
-import { AppBar, Grid, IconButton, List, ListItem, ListItemButton, ListItemText, Toolbar } from "@mui/material";
-import { ArrowBackIosNew } from "@mui/icons-material";
+import { Grid, List, ListItem, ListItemButton, ListItemText, SpeedDial, SpeedDialAction } from "@mui/material";
+import { Groups, Menu, Public } from "@mui/icons-material";
 import { PropsWithChildren, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { isMobile } from "../Hooks/isMobile";
 import { AppThemeContext } from "../Providers/AppThemeProvider";
+import { routes } from "../App";
 
 export function AppLayout(props: PropsWithChildren<{}>) {
 	const mobile = isMobile();
@@ -79,27 +80,11 @@ function MobileLayout(props: PropsWithChildren<{}>) {
 
 	return (
 		<div id="mobile-layout">
-			<div id="mobile-layout-header">
-				<AppBar position="absolute" style={{ backgroundColor: "#FFF", boxShadow: "none", height: 64 }}>
-					<Toolbar>
-						<>
-							<IconButton
-								color="inherit"
-								aria-label="  "
-								onClick={() => navigate(-1)}
-								sx={{ color: "rgba(0,0,0,0.54)" }}
-							>
-								<ArrowBackIosNew />
-							</IconButton>
-						</>
-					</Toolbar>
-				</AppBar>
-			</div>
 			<div
 				id="mobile-layout-header-view"
 				style={{
 					position: "absolute",
-					top: 64,
+					top: 0,
 					left: 0,
 					right: 0,
 					bottom: 0,
@@ -108,6 +93,22 @@ function MobileLayout(props: PropsWithChildren<{}>) {
 			>
 				{props.children}
 			</div>
+			<SpeedDial
+				sx={{ position: 'absolute', bottom: 16, right: 16 }}
+				icon={<Menu />} ariaLabel={""}				>
+					<SpeedDialAction
+						key={"Locations"}
+						icon={<Public />}
+						tooltipTitle={"Locations"}
+						onClick={() => navigate(routes.locationsListPage)}
+					/>
+					<SpeedDialAction
+						key={"Characters"}
+						icon={<Groups />}
+						tooltipTitle={"Characters"}
+						onClick={() => navigate(routes.charactersListPage)}
+					/>
+				</SpeedDial>
 		</div>
 	);
 }
