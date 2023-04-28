@@ -1,4 +1,3 @@
-import { routes } from "../../App";
 import { Route, Routes } from "react-router-dom";
 import { CharacterListPage } from "./CharacterListPage";
 import { AppLayout } from "../../Layout/AppLayout";
@@ -9,7 +8,7 @@ export function CharacterPage(){
         <AppLayout>
             <Routes>
                 <Route path={"/:id"} element={<CharacterDetailPage />} />
-                <Route index element={<CharacterListPage />} />
+                <Route index path="*" element={<CharacterListPage />} />
             </Routes>
         </AppLayout>
     )

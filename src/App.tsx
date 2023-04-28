@@ -5,6 +5,7 @@ import { CharacterPage } from './Pages/Characters/CharacterPage'
 import { ApolloProvider } from '@apollo/client'
 import { WebClient } from './Services/Server/WebClient'
 import { LocationPage } from './Pages/Locations/LocationPage'
+import { AppDataProvider } from './Providers/AppDataProvider'
 
 export const routes = {
   charactersListPage: "/characters",
@@ -20,17 +21,19 @@ export const routes = {
 function App() {
 
   return (
-      <AppThemeProvider>
-    <BrowserRouter>
+    <AppThemeProvider>
+        <BrowserRouter>
         <ApolloProvider client={WebClient}>
-          <Routes>
-            <Route path={"/characters/*"} element={<CharacterPage />} />
-            <Route path={"/locations/*"} element={<LocationPage />} />
-            <Route path="*" element={<Navigate to={routes.charactersListPage} replace />} />
-          </Routes>
+          <AppDataProvider>
+            <Routes>
+              <Route path={"/characters/*"} element={<CharacterPage />} />
+              <Route path={"/locations/*"} element={<LocationPage />} />
+              <Route path="*" element={<Navigate to={routes.charactersListPage} replace />} />
+            </Routes>
+          </AppDataProvider>
         </ApolloProvider>
-    </BrowserRouter>
-      </AppThemeProvider>
+      </BrowserRouter>
+    </AppThemeProvider>
   )
 }
 

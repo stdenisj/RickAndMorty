@@ -8,7 +8,7 @@ export function LocationPage(){
         <AppLayout>
             <Routes>
                 <Route path={"/:id"} element={<LocationDetailPage />} />
-                <Route index element={<LocationListPage />} />
+                <Route index path="*" element={<LocationListPage />} />
             </Routes>
         </AppLayout>
     )
