@@ -1,10 +1,4 @@
-import {
-    Card,
-    CardContent,
-    CardMedia,
-    Grid,
-    Typography,
-  } from "@mui/material";
+import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import { routes } from "../App";
 import { useNavigate } from "react-router";
   

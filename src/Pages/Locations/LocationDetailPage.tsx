@@ -6,7 +6,6 @@ import { useMemo } from "react";
 import { LocationService } from "../../Services/Locations/LocationService";
 import { LocationDetailCard } from "./Components/LocationDetailCard";
 import { CharacterListCard } from "../../Components/CharacterListCard";
-import { GridGrow } from "../../Components/GridGrow";
 
 export function LocationDetailPage(){
     const mobile = isMobile();
