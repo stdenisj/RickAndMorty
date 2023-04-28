@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import './App.css'
 import AppThemeProvider from './Providers/AppThemeProvider'
 import { CharacterPage } from './Pages/Characters/CharacterPage'
@@ -26,6 +26,7 @@ function App() {
           <Routes>
             <Route path={"/characters/*"} element={<CharacterPage />} />
             <Route path={"/locations/*"} element={<LocationPage />} />
+            <Route path="*" element={<Navigate to={routes.charactersListPage} replace />} />
           </Routes>
         </ApolloProvider>
     </BrowserRouter>
